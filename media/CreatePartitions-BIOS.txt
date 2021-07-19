@@ -1,0 +1,11 @@
+select disk 0 
+clean 
+create partition primary size=500 
+select partition 1 
+active 
+format fs=ntfs label="System" quick 
+assign letter = S
+create partition primary 
+format fs=ntfs label="OS" quick 
+assign letter = W
+exit

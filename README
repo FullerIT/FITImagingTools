@@ -1,0 +1,6 @@
+Using Deployment and Imaging Tools Environment, run the copype command:
+copype amd64 C:\WinPE_amd64
+In the media folder, take all those contents and drop them into media folder in this folder.
+
+You can use the "adddrivers" script to inject drivers into the PE image(you have to run mount before the command and commit after), but you can also do this inside PE itself,
+by adding the drivers to the drivers folder in PE and running the menu commands to add a driver.

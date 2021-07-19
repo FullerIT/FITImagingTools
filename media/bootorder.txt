@@ -1,0 +1,15 @@
+boot\bcd
+boot\boot.dsi
+boot\bootfix.bin
+boot\bootsect.exe
+boot\etfsboot.com
+boot\efisys.bin
+boot\efisys_noprompt.bin
+boot\fonts\chs_boot.ttf
+boot\fonts\cht_boot.ttf
+boot\fonts\jpn_boot.ttf
+boot\fonts\kor_boot.ttf
+sources\boot.wim
+
+
+
