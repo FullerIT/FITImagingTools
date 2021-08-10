@@ -1,5 +1,6 @@
 @ECHO OFF
 ::Created by pellis@fullerinfotech.com
+::V2021-08-10 Encountered a system that booted PE with C assigned to the wrong partition (BIOS partition scheme, I think) Added a drive letter prompt to the capture commands
 ::V2021-07-16 Added deploynet and deployusb folder detection to direct the software to just deploy without prompts
 ::V2021-01-08 Added parameters to install all inf from drivers folder. Added Network capture. Fixed path for findstr. added variables
 ::V2019-08-02 Added more menu options for network deploy and other options
@@ -47,9 +48,13 @@ GOTO:menuLOOP
 
 :menu_1   Capture Image (Local)
 ECHO Capture Image (Local)
-::dism /Apply-Image /ImageFile:I:\install.wim /Index:1 /ApplyDir:W:\
-dism /capture-image /capturedir:c:\ /imagefile:I:\install.wim /Name:"Windows 10" /compress:fast
-::W:\Windows\System32\bcdboot W:\Windows /s S:
+echo list vol > lsdisk.tmp
+diskpart /s lsdisk.tmp
+ECHO Wscript.Echo Inputbox("Enter Drive Letter to be imaged (ex: c:\) ")>%TEMP%\~input.vbs
+FOR /f "delims=/" %%G IN ('cscript //nologo %TEMP%\~input.vbs') DO set disk=%%G
+DEL %TEMP%\~input.vbs
+
+dism /capture-image /capturedir:%disk% /imagefile:I:\install.wim /Name:"Windows 10" /compress:fast
 ECHO Capture Image Task Complete
 pause
 GOTO:menuLOOP
