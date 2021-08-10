@@ -1,9 +1,13 @@
 # FITImagingTools
  Tools for creating Windows 10 images
 Pre-Requisites:
+
 https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+
 https://go.microsoft.com/fwlink/?linkid=2120253
+
 https://go.microsoft.com/fwlink/?linkid=2120254
+
 
 Using Deployment and Imaging Tools Environment, run the copype command:
 > copype amd64 C:\WinPE_amd64
