@@ -9,6 +9,7 @@ Releases/
 *.p7b
 *.cert
 *.xml
+MobaLiveCD_v2.1.exe
 
 # Windows image file caches
 Thumbs.db
