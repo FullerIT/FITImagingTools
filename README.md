@@ -11,6 +11,8 @@ https://go.microsoft.com/fwlink/?linkid=2120254
 
 Using Deployment and Imaging Tools Environment, run the copype command:
 > copype amd64 C:\WinPE_amd64
+
+
 In the media folder, take all those contents and drop them into media folder in this folder.
 
 
@@ -42,6 +44,8 @@ Some mount scripts are included in case you need to modify the default PE image.
 Adding drivers is sometimes necessary. You can add them here if you plan to use them on all future images or you can add them dynamically when the image boots.
 To burn the drivers into the boot.wim run
 > mnt.cmd
+
+
 Place the drivers into the InjectPEDrivers folder then run
 > adddriver.cmd
 
