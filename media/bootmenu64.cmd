@@ -11,11 +11,6 @@
 :: I, the location for the images to be placed Images (install.wim should be the only file here)
 :: N, the optional mapped network drive to map in PE (optional mapped drive in PE)
 
-::Not sure if vbs works in PE
-::ECHO Wscript.Echo Inputbox("No spaces allowed. Example: PremiumWidgetCo", "Enter Company name: ")>%TEMP%\~input.vbs
-::FOR /f "delims=/" %%G IN ('cscript //nologo %TEMP%\~input.vbs') DO set company=%%G
-::DEL %TEMP%\~input.vbs
-
 set netpath=\\FITRESTORETEST\CustomImages
 set user=fitrestoretest\capture
 set pwd=FITCap@93614
@@ -50,10 +45,7 @@ GOTO:menuLOOP
 ECHO Capture Image (Local)
 echo list vol > lsdisk.tmp
 diskpart /s lsdisk.tmp
-ECHO Wscript.Echo Inputbox("Enter Drive Letter to be imaged (ex: c:\) ")>%TEMP%\~input.vbs
-FOR /f "delims=/" %%G IN ('cscript //nologo %TEMP%\~input.vbs') DO set disk=%%G
-DEL %TEMP%\~input.vbs
-
+echo.&set /p disk="Enter disk letter (ex: C:\): "
 dism /capture-image /capturedir:%disk% /imagefile:I:\install.wim /Name:"Windows 10" /compress:fast
 ECHO Capture Image Task Complete
 pause
