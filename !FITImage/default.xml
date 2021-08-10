@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+  <settings pass="specialize">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <StartTiles>
+        <PromoteOEMTiles>false</PromoteOEMTiles>
+      </StartTiles>
+      <WindowsFeatures>
+        <ShowMediaCenter>false</ShowMediaCenter>
+        <ShowInternetExplorer>false</ShowInternetExplorer>
+        <ShowWindowsMediaPlayer>false</ShowWindowsMediaPlayer>
+      </WindowsFeatures>
+      <CopyProfile>true</CopyProfile>
+      <TimeZone>Eastern Standard Time</TimeZone>
+      <RegisteredOrganization>DefaultOrganization</RegisteredOrganization>
+      <RegisteredOwner>DefaultOwner</RegisteredOwner>
+    </component>
+  </settings>
+  <settings pass="oobeSystem">
+    <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <OOBE>
+        <HideEULAPage>true</HideEULAPage>
+        <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+        <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+        <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+        <HideLocalAccountScreen>true</HideLocalAccountScreen>
+      </OOBE>
+      <RegisteredOrganization>DefaultOrganization</RegisteredOrganization>
+      <RegisteredOwner>DefaultOwner</RegisteredOwner>
+      <TimeZone>Eastern Standard Time</TimeZone>
+    </component>
+    <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <InputLocale>en-US</InputLocale>
+      <SystemLocale>en-US</SystemLocale>
+      <UILanguage>en-US</UILanguage>
+      <UserLocale>en-US</UserLocale>
+    </component>
+  </settings>
+  <cpi:offlineImage cpi:source="wim:d:/install21h1.wim#Windows 10 Pro" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
