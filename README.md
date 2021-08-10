@@ -1,6 +1,6 @@
 # FITImagingTools
  Tools for creating Windows 10 images
-Pre-Requisites:
+Pre-requisites:
 
 https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
 
