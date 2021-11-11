@@ -1,5 +1,6 @@
 @ECHO OFF
 ::Created by pellis@fullerinfotech.com
+::V2021-11-11 added autodrivers folder to install drivers automatically.
 ::V2021-08-10 Encountered a system that booted PE with C assigned to the wrong partition (BIOS partition scheme, I think) Added a drive letter prompt to the capture commands
 ::V2021-07-16 Added deploynet and deployusb folder detection to direct the software to just deploy without prompts
 ::V2021-01-08 Added parameters to install all inf from drivers folder. Added Network capture. Fixed path for findstr. added variables
@@ -11,9 +12,22 @@
 :: I, the location for the images to be placed Images (install.wim should be the only file here)
 :: N, the optional mapped network drive to map in PE (optional mapped drive in PE)
 
+::Not sure if vbs works in PE
+::ECHO Wscript.Echo Inputbox("No spaces allowed. Example: PremiumWidgetCo", "Enter Company name: ")>%TEMP%\~input.vbs
+::FOR /f "delims=/" %%G IN ('cscript //nologo %TEMP%\~input.vbs') DO set company=%%G
+::DEL %TEMP%\~input.vbs
+
 set netpath=\\FITRESTORETEST\CustomImages
 set user=fitrestoretest\capture
 set pwd=FITCap@93614
+
+if exist %~dp0autodrivers\ (
+  echo autodrivers folder detected
+  echo starting driver install
+  for /f "delims=" %%n in ('dir /s /b K:\autodrivers\*.inf') do drvload "%%n"
+) else (
+  echo No deployusb folder found
+)
 
 if exist %~dp0deployusb\ (
   echo deployusb folder detected
@@ -45,7 +59,10 @@ GOTO:menuLOOP
 ECHO Capture Image (Local)
 echo list vol > lsdisk.tmp
 diskpart /s lsdisk.tmp
-echo.&set /p disk="Enter disk letter (ex: C:\): "
+ECHO Wscript.Echo Inputbox("Enter Drive Letter to be imaged (ex: c:\) ")>%TEMP%\~input.vbs
+FOR /f "delims=/" %%G IN ('cscript //nologo %TEMP%\~input.vbs') DO set disk=%%G
+DEL %TEMP%\~input.vbs
+
 dism /capture-image /capturedir:%disk% /imagefile:I:\install.wim /Name:"Windows 10" /compress:fast
 ECHO Capture Image Task Complete
 pause
@@ -114,7 +131,7 @@ GOTO:menuLOOP
 
 :menu_5   Install inf files in Drivers folder
 ECHO Install Network Drivers
-for /f "delims=" %n in ('dir /s /b K:\drivers\*.inf') do drvload "%n"
+for /f "delims=" %%n in ('dir /s /b K:\drivers\*.inf') do drvload "%%n"
 pause
 GOTO:menuLOOP
 
