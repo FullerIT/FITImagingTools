@@ -76,12 +76,17 @@ Once the system is shutdown, make sure the usb is inserted and you know the key 
 You want UEFI boot on the flash drive, it will start up and preset a menu of options.
 
 
-Troubleshooting:
+The options are pretty clear. Capture your image and then move the flash to a test system and deploy it.
 
+
+Troubleshooting:
 
 If you can't see the local disk when you boot the usb, you may want to boot the gold image back up and check the driver for the storage controller, you'll need to download that inf and sys driver from the vendor and place it in autodrivers on the flash drive or put it in drivers on the flash drive, then you can load that driver from the boot menu, autodrivers, will load all drivers in the folder.
 It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume sysem memory.
-You can add drivers here for a one-off driver PE driver setup, useful for disk drivers or network drivers if you are doing a network image.
 
 
-The options are pretty clear. Capture your image and then move the flash to a test system and deploy it.
+Place drivers in "drivers" or "autodrivers" on the root of the PE partition of the flash drive. Or put those folders in your media folder in the build environment to copy to each flash drive when they are built.
+Use autodrivers for automatic loading on PE start up or drivers for manually loading via the menu options.
+
+
+
