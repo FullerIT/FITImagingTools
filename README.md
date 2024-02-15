@@ -74,6 +74,13 @@ It will prompt for the name to insert into the unattend file. On the menu you ca
 
 Once the system is shutdown, make sure the usb is inserted and you know the key to access the boot menu and power it on and select the boot menu.
 You want UEFI boot on the flash drive, it will start up and preset a menu of options.
+
+
+Troubleshooting:
+
+
+If you can't see the local disk when you boot the usb, you may want to boot the gold image back up and check the driver for the storage controller, you'll need to download that inf and sys driver from the vendor and place it in autodrivers on the flash drive or put it in drivers on the flash drive, then you can load that driver from the boot menu, autodrivers, will load all drivers in the folder.
+It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume sysem memory.
 You can add drivers here for a one-off driver PE driver setup, useful for disk drivers or network drivers if you are doing a network image.
 
 
