@@ -108,12 +108,15 @@ The menu on this script if ignored, creates the same bootable flash drive as run
 One option enables autodriver deployment, another starts deployment of a usb based image and the last option starts a network image deployment (advanced), that option requires modifying the scripts a bit to include an SMB path containing the image.
 
 
-Troubleshooting:
+## Troubleshooting:
 
 If you can't see the local disk when you boot the usb, you may want to boot the gold image back up and check the driver for the storage controller, you'll need to download that inf and sys driver from the vendor and place it in autodrivers on the flash drive or put it in drivers on the flash drive, then you can load that driver from the boot menu, autodrivers, will load all drivers in the folder.
 It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume sysem memory.
 
-
+### Sysprep problems
+Sysprep may fail and point you to the log file at %windir%\system32\sysprep\Panther\setupact.log
+If error appears such as 'Sysprep_Clean_Validate_Opk' "Audit mode cannot be turned on if reserved storage is in use. An update or servicing operation may be using reserved storage.
+You may have a pending update to complete installing, then re-run the script.
 
 
 
