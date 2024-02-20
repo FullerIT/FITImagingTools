@@ -1,5 +1,5 @@
 # FITImagingTools
- Tools for creating Windows 10 images
+## Tools for creating Windows 10 images
 Pre-requisites:
 
 https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
@@ -9,39 +9,28 @@ https://go.microsoft.com/fwlink/?linkid=2120253
 https://go.microsoft.com/fwlink/?linkid=2120254
 
 
-From the "Deployment and Imaging Tools Environment", run the copype command:
+Install both adksetup.exe and adkwinpesetup.exe only selecting the default options.
+
+
+From the "**Deployment and Imaging Tools Environment**", run the copype command:
 > copype amd64 C:\WinPE_amd64
 
 
-In the media folder, take all those contents and drop them into media folder in this folder.
+In the generated media folder, take all those contents and drop them into the empty media folder in our project.
 
 
-You can use the "adddrivers" script to inject drivers into the PE image(you have to run mount before the command and commit after), but you can also do this inside PE itself,
-by adding the drivers to the drivers folder in PE and running the menu commands to add a driver.
+## Prep the boot.wim to call bootmenu64.cmd
+Run mnt.cmd, in the mount folder, Windows\system32 locate startnet.cmd
+Replace it with the startnet.cmd from modified-boot.wim-files
+This sets the drive letters and calls bootmenu64.cmd
+When done modifying to the boot.wim, run commitmnt.cmd
+
+## Burned in PE Image Drivers (not recommended)
+
+Adding drivers at boot time is sometimes necessary (usually only if you crash before startnet.cmd runs).
+You can add them here if you plan to use them on all future images or you can add them dynamically when the image boots.
 
 
-Place the !FITImage folder at the same level as "Windows" folder on your Golden Image.
-You can use that powershell script to generate a quick OOBE unattend file, clean AppX packages and to start the sysprep with unattend.
-The folder is a good place to put after image files that you may need as well.
-
-
-Get a clean USB and insert it into your technician PC.
-Run 
-> 1prepUSB.cmd
-
-
-This should create the partition table, if you get errors just run it a second time, sometimes another process grabs the file system before it can be formatted and it freaks out.
-
-
-Then run 
-> 2makeusbpe.cmd
-
-
-This will place the pe files onto the flash drive's WinPE partition.
-
-
-Some mount scripts are included in case you need to modify the default PE image.
-Adding drivers is sometimes necessary. You can add them here if you plan to use them on all future images or you can add them dynamically when the image boots.
 To burn the drivers into the boot.wim run
 > mnt.cmd
 
@@ -57,8 +46,37 @@ Once the process completes you can dismount the image
 If you made a mistake with the mounted image, you can discard the changes run
 > discardmnt.cmd
 
+## Drivers during PE start up
+Place drivers in "drivers" or "autodrivers" in the media folder in the build environment to copy to each flash drive when they are built.
+Use 'autodrivers' for automatic loading on PE start up via bootmenu64.cmd or 'drivers' for manually loading via the drivers menu option.
+
+## Sysprep script
+Place the !FITImage folder at the same level as "Windows" folder on your Golden Image that you intend to capture.
+You can use that powershell script to generate a quick OOBE unattend file, clean AppX packages and to start the sysprep with unattend.
+The folder is a good place to put files that you realize you need to run manually after the image is deployed, such as software to run after the install that doesn't cooperate well when imaged.
+
+## Creating the USB
+Get a clean USB and insert it into your technician PC.
+Run 
+> 1prepUSB.cmd
+
+
+This should create the partition table, if you get errors just run it a second time, sometimes another process grabs the file system before it can be formatted and it freaks out.
+You should see two partitions showing up named WINPE and Images now.
+
+
+Then run 
+> 2makeusbpe.cmd
+
+
+This will place the pe files onto the flash drive's WinPE partition.
+
+
+Some mount scripts are included in case you need to modify the default PE image.
+
 
 Once the USB is created, place it in the Golden Image system and press F12 or F10 or whatever to confirm the boot menu button, make a note of it.
+You may also want to confirm that diskpart can see the local disk, you can just run diskpart and then 'list disk' to confirm you see more than just the USB disk. See troubleshooting below if you just see one disk.
 
 Boot the Golden Image normally and do the typical cleanup items:
 * Run disk cleanup as Administrator and select all the options
@@ -78,6 +96,14 @@ You want UEFI boot on the flash drive, it will start up and preset a menu of opt
 
 The options are pretty clear. Capture your image and then move the flash to a test system and deploy it.
 
+## Making extra flash drives
+buildusbflash.cmd combines 1prep and 2makeusbpe into a single script and also let's you set automation parameters for the bootmenu64 script.
+This is often used to make clones of additional flash drives. Once you have your image, let's say it's in the images partition, you can copy the wim file to our build environment folder "image-partition"
+The buildusbflash.cmd will copy that image to the new flash drives it makes.
+
+The menu on this script if ignored, creates the same bootable flash drive as running 1prep and 2makeusb scripts, but the menu allows you to drop files into the usb that signal bootmenu64 to ignore the menu and start a specific process.
+One option enables autodriver deployment, another starts deployment of a usb based image and the last option starts a network image deployment (advanced), that option requires modifying the scripts a bit to include an SMB path containing the image.
+
 
 Troubleshooting:
 
@@ -85,8 +111,7 @@ If you can't see the local disk when you boot the usb, you may want to boot the 
 It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume sysem memory.
 
 
-Place drivers in "drivers" or "autodrivers" on the root of the PE partition of the flash drive. Or put those folders in your media folder in the build environment to copy to each flash drive when they are built.
-Use autodrivers for automatic loading on PE start up or drivers for manually loading via the menu options.
+
 
 
 
