@@ -9,7 +9,7 @@ https://go.microsoft.com/fwlink/?linkid=2120253
 https://go.microsoft.com/fwlink/?linkid=2120254
 
 
-Using Deployment and Imaging Tools Environment, run the copype command:
+From the "Deployment and Imaging Tools Environment", run the copype command:
 > copype amd64 C:\WinPE_amd64
 
 
