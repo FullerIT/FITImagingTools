@@ -1,4 +1,7 @@
 # FITImagingTools
+## Warnings
+This script will maintain BIOS or UEFI partition types, but destination cloned systems will only get the OS written to them, any Dell partitions, acronis, etc will be wiped from destination devices.
+
 ## Tools for creating Windows 10 images
 Pre-requisites:
 
