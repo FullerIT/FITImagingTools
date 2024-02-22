@@ -118,6 +118,7 @@ Sysprep may fail and point you to the log file at %windir%\system32\sysprep\Pant
 If error appears such as 'Sysprep_Clean_Validate_Opk' "Audit mode cannot be turned on if reserved storage is in use. An update or servicing operation may be using reserved storage.
 You may have a pending update to complete installing, then re-run the script.
 
-
+### ImageUser Account
+After deploy completes a default standard user account is added called "ImageUser" it's just a placeholder, the original account will remain in place. The password for the ImageUser is Slowpie165%, either delete the account or change the password after deploy completes.
 
 
