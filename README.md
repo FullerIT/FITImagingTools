@@ -111,7 +111,7 @@ One option enables autodriver deployment, another starts deployment of a usb bas
 ## Troubleshooting:
 
 If you can't see the local disk when you boot the usb, you may want to boot the gold image back up and check the driver for the storage controller, you'll need to download that inf and sys driver from the vendor and place it in autodrivers on the flash drive or put it in drivers on the flash drive, then you can load that driver from the boot menu, autodrivers, will load all drivers in the folder.
-It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume sysem memory.
+It's best to only load what is necessary rather than drop a bunch of drivers in that will only consume system memory.
 
 ### Sysprep problems
 Sysprep may fail and point you to the log file at %windir%\system32\sysprep\Panther\setupact.log
