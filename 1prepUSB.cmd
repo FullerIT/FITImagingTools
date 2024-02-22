@@ -50,16 +50,18 @@ echo create partition primary size=700 >> clean.tmp
 ::echo create partition primary >> clean.tmp
 echo format quick fs=fat32 label="WinPE" >> clean.tmp
 echo assign letter=P >> clean.tmp
-echo active >> clean.tmp
 echo create partition primary >> clean.tmp
 echo format fs=ntfs quick label="Images" >> clean.tmp
 echo assign letter=I >> clean.tmp
+echo sel part 1 >> clean.tmp
 echo list vol >> clean.tmp
+echo active >> clean.tmp
 diskpart /s clean.tmp
 del /q clean.tmp lsdisk.tmp
 LABEL P: WinPE
 LABEL I: Images
 echo WARNING: If you see errors above just run it again, sometimes the file system is in use and it fails the first try
+echo          Active error is ok to ignore
 Echo Now run 2makeusbpe.cmd
 ::echo After that put the wim file into O drive letter
 pause
