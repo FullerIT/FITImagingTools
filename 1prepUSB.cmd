@@ -61,8 +61,12 @@ del /q clean.tmp lsdisk.tmp
 LABEL P: WinPE
 LABEL I: Images
 echo WARNING: If you see errors above just run it again, sometimes the file system is in use and it fails the first try
-echo          Active error is ok to ignore
-Echo Now run 2makeusbpe.cmd
+echo          Active error is ok to ignore, this usually means the partition type is GPT
+pause
+powershell -Command "& get-disk"
+echo If the partition style for the flash drive shows GPT, run 2makeusbpeGPT.cmd
+echo If the partition style for the flash drive shows MBR, run 2makeusbpeMBR.cmd
+
 ::echo After that put the wim file into O drive letter
 pause
 
