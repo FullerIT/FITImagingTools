@@ -1,6 +1,7 @@
 # FITImagingTools
 ## Warnings
 This script will maintain BIOS or UEFI partition types, but destination cloned systems will only get the OS written to them, any Dell partitions, acronis, etc will be wiped from destination devices.
+Yes, this is a cobbled together mess of scripts developed since early Windows 10 era. This very much follows, if it isn't broke, I didn't fix it.
 
 ## Tools for creating Windows 10 images
 Pre-requisites:
@@ -69,7 +70,7 @@ You should see two partitions showing up named WINPE and Images now.
 
 
 Then run 
-> 2makeusbpe.cmd
+> 2makeusbpe.cmd (this is split into two different scripts based on what partition type the flash has, either GPT or MBR, just try both if unsure.)
 
 
 This will place the pe files onto the flash drive's WinPE partition.
@@ -87,11 +88,11 @@ Boot the Golden Image normally and do the typical cleanup items:
 * Clear the Quick Access folders and file lists
 * Empty the temp folder, but you have to reboot after doing so
 
-Now you can run the syspreptool.ps1 file, you may need to run it with bypass flag included
+Now you can run the syspreptool.ps1 file, you may need to run it with bypass flag included (there is a batch you can run as admin to do this for you)
 > PowerShell.exe -ExecutionPolicy Bypass -File .C:\!FITImage\syspreptool.ps1
 
 
-It will prompt for the name to insert into the unattend file. On the menu you can select each option and the sysprep option will perform a shutdown if it succeeds.
+It will prompt for the name to insert into the unattend file. On the menu you can select each option and the sysprep option will run and quit. You can then shutdown or reboot to image. (I changed this to quit so that you could choose to reboot or shutdown, I had a laptop that would only go to UEFI if you held shift on reboot, nothing worked from a cold boot)
 
 Once the system is shutdown, make sure the usb is inserted and you know the key to access the boot menu and power it on and select the boot menu.
 You want UEFI boot on the flash drive, it will start up and preset a menu of options.
@@ -104,8 +105,12 @@ buildusbflash.cmd combines 1prep and 2makeusbpe into a single script and also le
 This is often used to make clones of additional flash drives. Once you have your image, let's say it's in the images partition, you can copy the wim file to our build environment folder "image-partition"
 The buildusbflash.cmd will copy that image to the new flash drives it makes.
 
+
 The menu on this script if ignored, creates the same bootable flash drive as running 1prep and 2makeusb scripts, but the menu allows you to drop files into the usb that signal bootmenu64 to ignore the menu and start a specific process.
 One option enables autodriver deployment, another starts deployment of a usb based image and the last option starts a network image deployment (advanced), that option requires modifying the scripts a bit to include an SMB path containing the image.
+
+
+Do not run this script more than one at a time because they use fixed drive letters so your second run will format the previous disk.
 
 
 ## Troubleshooting:
