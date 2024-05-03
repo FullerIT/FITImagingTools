@@ -4,7 +4,7 @@ This script will maintain BIOS or UEFI partition types, but destination cloned s
 Yes, this is a cobbled together mess of scripts developed since early Windows 10 era. This very much follows, if it isn't broke, I didn't fix it.
 
 ## Tools for creating Windows 10 images
-Pre-requisites:
+Pre-requisites/Initial Setup:
 
 https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
 
