@@ -1,5 +1,6 @@
 #Custom specific files
 log/
+.exclude/
 Releases/
 *.log
 *.tmp
